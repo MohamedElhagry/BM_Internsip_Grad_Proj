@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface ItemRepo extends JpaRepository<Item, Long> {
 
-
     List<Item> findByCategory(String category);
+    Boolean existsByName(String name);
     Optional<Item> findByName(String name);
 }

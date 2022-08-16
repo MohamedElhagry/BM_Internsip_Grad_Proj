@@ -42,11 +42,6 @@ public class AuthenticationController {
         return ResponseEntity.ok("User registered successfully");
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO)
-//    {
-//
-//    }
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers()

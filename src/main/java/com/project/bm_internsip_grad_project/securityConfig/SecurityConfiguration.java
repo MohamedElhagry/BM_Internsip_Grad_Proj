@@ -41,6 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/auth/register",
             "/login",
             "/auth/login",
+            "/auth/users",
             "/swagger-ui/**",
             "/v2/api-docs",
             "/swagger-ui/",

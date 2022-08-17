@@ -47,6 +47,12 @@ public class ItemController {
         }
     }
 
+    @PostMapping("/deleteItem")
+    public void deleteItem(@RequestBody Long id)
+    {
+        itemRepo.deleteById(id);
+    }
+
     @GetMapping("/getAllItems")
     public List<Item> getItems()
     {

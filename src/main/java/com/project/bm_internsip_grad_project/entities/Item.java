@@ -27,4 +27,7 @@ public class Item {
 
     @Column(name = "category")
     private String category;
+
+    @Column(name = "image")
+    private String image;
 }

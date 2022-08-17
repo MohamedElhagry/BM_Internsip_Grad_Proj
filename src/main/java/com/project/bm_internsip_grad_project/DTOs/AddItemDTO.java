@@ -8,4 +8,5 @@ public class AddItemDTO {
     Long price;
     String size;
     String category;
+    String image;
 }

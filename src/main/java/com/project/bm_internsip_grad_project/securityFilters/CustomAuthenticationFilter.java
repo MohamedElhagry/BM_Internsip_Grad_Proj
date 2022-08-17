@@ -27,7 +27,6 @@ import static com.project.bm_internsip_grad_project.securityFilters.Constants.JW
 import static com.project.bm_internsip_grad_project.securityFilters.Constants.SECRET;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @Slf4j
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 

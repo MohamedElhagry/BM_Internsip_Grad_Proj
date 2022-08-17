@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
@@ -30,7 +31,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 
 @SuppressWarnings("deprecation")
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -100,16 +101,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //        return source;
 //    }
 
+//    @Bean
+//    public CorsFilter corsFilter() {
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        CorsConfiguration config = new CorsConfiguration();
+//        config.addAllowedOrigin("*");
+//        config.addAllowedHeader("*");
+//        config.addAllowedMethod("*");
+//        source.registerCorsConfiguration("/**", config);
+//        CorsFilter bean = new CorsFilter((CorsConfigurationSource) source);
+//        return bean;
+//    }
+
     @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-        source.registerCorsConfiguration("/**", config);
-        CorsFilter bean = new CorsFilter((CorsConfigurationSource) source);
-        return bean;
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+                .cors().disable()
+                .build();
     }
 
     @Bean

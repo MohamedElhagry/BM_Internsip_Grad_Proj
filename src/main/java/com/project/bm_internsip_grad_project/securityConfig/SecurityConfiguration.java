@@ -79,7 +79,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticated().and().addFilter(customAuthenticationFilter)
                 .addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement().sessionCreationPolicy(STATELESS)
-                .and().cors().and().csrf().disable();
+                .and().cors().and().csrf().disable().build();
 //        http.cors().and().csrf().disable();
 //        http.sessionManagement().sessionCreationPolicy(STATELESS);
 ////        http.authorizeRequests().antMatchers()

@@ -22,11 +22,11 @@ public class Item {
     @Column(name = "price")
     private Long price;
 
-    @Column(name ="size")
-    private String size;
+    @Column(name ="boughItemsCount")
+    private Integer bough_items_count;
 
-    @Column(name = "category")
-    private String category;
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "image")
     private String image;

@@ -33,7 +33,7 @@ public class ItemController {
     {
         Item item = new Item();
         modelMapper.map(addItemDTO, item);
-
+        item.setBough_items_count(0);
         try {
             Optional<Item> itemOptional = itemService.addItem(item);
             if (itemOptional.isPresent())
@@ -47,8 +47,8 @@ public class ItemController {
         }
     }
 
-    @PostMapping("/deleteItem")
-    public void deleteItem(@RequestBody Long id)
+    @PostMapping("/deleteItem/{id}")
+    public void deleteItem(@PathVariable Long id)
     {
         itemRepo.deleteById(id);
     }

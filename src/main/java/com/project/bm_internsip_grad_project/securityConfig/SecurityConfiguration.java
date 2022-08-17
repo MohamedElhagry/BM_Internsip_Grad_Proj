@@ -31,7 +31,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 
 @SuppressWarnings("deprecation")
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity()
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 

@@ -27,6 +27,7 @@ import static com.project.bm_internsip_grad_project.securityFilters.Constants.JW
 import static com.project.bm_internsip_grad_project.securityFilters.Constants.SECRET;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Slf4j
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -38,7 +39,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     }
 
     @Override
-    @CrossOrigin(origins = "*", maxAge = 3600)
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         log.info("here");
         if(!request.getParameterMap().containsKey("email") || !request.getParameterMap().containsKey("password"))

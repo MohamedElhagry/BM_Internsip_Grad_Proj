@@ -15,14 +15,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-//import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
@@ -31,7 +27,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 
 @SuppressWarnings("deprecation")
 @Configuration
-@EnableWebSecurity()
+@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -45,28 +41,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     // http://localhost:8081/swagger-ui/index.html#/
     // to view the docs
     private static final String[] whiteList =
-    {
-            "/auth/register",
-            "/login",
-            "/auth/login",
-            "/auth/users",
-            "/swagger-ui/**",
-            "/v2/api-docs",
-            "/swagger-ui/",
-            "/v3/api-docs/**"
-    };
+            {
+                    "/auth/register",
+                    "/login",
+                    "/auth/login",
+                    "/auth/users",
+                    "/swagger-ui/**",
+                    "/v2/api-docs",
+                    "/swagger-ui/",
+                    "/v3/api-docs/**"
+            };
 
     private static final String[] allowedURLS =
-    {
-            "https://murmuring-temple-54993.herokuapp.com",
-            "http://localhost:8081",
-            "http://localhost:4200"
-    };
+            {
+                    "https://murmuring-temple-54993.herokuapp.com",
+                    "http://localhost:8081",
+                    "http://localhost:4200"
+            };
 
     private static final String[] userPages=
-    {
+            {
 
-    };
+            };
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -77,36 +73,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
         customAuthenticationFilter.setFilterProcessesUrl("/auth/login");
-        http.authorizeRequests().antMatchers(whiteList).permitAll().anyRequest()
-                .authenticated().and().addFilter(customAuthenticationFilter)
-                .addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .sessionManagement().sessionCreationPolicy(STATELESS)
-                .and().cors().and().csrf().disable();
-    }
-
-    @Bean
-    public UrlBasedCorsConfigurationSource corsConfigurationSource()
-    {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(allowedURLS));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
+        http.cors().and().csrf().disable();
+        http.sessionManagement().sessionCreationPolicy(STATELESS);
+//        http.authorizeRequests().antMatchers()
+        http.authorizeRequests().antMatchers(whiteList).permitAll().anyRequest().authenticated();
+        http.addFilter(customAuthenticationFilter);
+        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
 //    @Bean
-//    public CorsFilter corsFilter() {
+//    public UrlBasedCorsConfigurationSource corsConfigurationSource()
+//    {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//        configuration.setAllowedOrigins(Arrays.asList(allowedURLS));
+//        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
 //        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        CorsConfiguration config = new CorsConfiguration();
-//        config.addAllowedOrigin("*");
-//        config.addAllowedHeader("*");
-//        config.addAllowedMethod("*");
-//        source.registerCorsConfiguration("/**", config);
-//        CorsFilter bean = new CorsFilter((CorsConfigurationSource) source);
-//        return bean;
+//        source.registerCorsConfiguration("/**", configuration);
+//        return source;
 //    }
-
 
     @Bean
     @Override

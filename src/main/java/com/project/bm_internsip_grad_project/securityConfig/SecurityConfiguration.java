@@ -82,24 +82,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement().sessionCreationPolicy(STATELESS)
                 .and().cors().and().csrf().disable();
-//        http.cors().and().csrf().disable();
-//        http.sessionManagement().sessionCreationPolicy(STATELESS);
-////        http.authorizeRequests().antMatchers()
-//        http.authorizeRequests().antMatchers(whiteList).permitAll().anyRequest().authenticated();
-//        http.addFilter(customAuthenticationFilter);
-//        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
-//    @Bean
-//    public UrlBasedCorsConfigurationSource corsConfigurationSource()
-//    {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(Arrays.asList(allowedURLS));
-//        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
+    @Bean
+    public UrlBasedCorsConfigurationSource corsConfigurationSource()
+    {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList(allowedURLS));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 
 //    @Bean
 //    public CorsFilter corsFilter() {
@@ -113,12 +107,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //        return bean;
 //    }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http
-                .cors().disable()
-                .build();
-    }
 
     @Bean
     @Override

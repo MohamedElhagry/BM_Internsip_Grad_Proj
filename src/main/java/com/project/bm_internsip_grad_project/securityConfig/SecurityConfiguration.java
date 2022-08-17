@@ -59,8 +59,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String[] allowedURLS =
     {
             "https://murmuring-temple-54993.herokuapp.com",
-            "http://localhost:8081"
-
+            "http://localhost:8081",
+            "http://localhost:4200"
     };
 
     private static final String[] userPages=
